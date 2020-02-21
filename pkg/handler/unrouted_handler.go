@@ -1116,7 +1116,14 @@ func ParseMetadataHeader(header string) map[string]string {
 			continue
 		}
 
-		meta[parts[0]] = parts[1]
+		key := parts[0]
+		value, err := base64.StdEncoding.DecodeString(parts[1])
+
+		if err == nil {
+			meta[key] = string(value)
+		} else {
+			meta[parts[0]] = parts[1]
+		}
 	}
 
 	return meta
