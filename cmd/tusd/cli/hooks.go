@@ -170,7 +170,7 @@ func upload(f handler.FileInfo) {
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(os.Getenv("AWS_REGION")) ,
-		Credentials: credentials.NewStaticCredentials(os.Getenv("AWS_ID"), os.Getenv("AWS_SECRET"), ""),
+		Credentials: credentials.NewStaticCredentials(os.Getenv("AWS_S3_ID"), os.Getenv("AWS_S3_SECRET"), ""),
 	})
 
 	if err != nil {
@@ -197,7 +197,7 @@ func upload(f handler.FileInfo) {
 	})
 
 	if err != nil {
-		logEv(stderr, "UploadFile", "id", f.ID)
+		logEv(stderr, "UploadFileError", "id", f.ID, "err", err.Error())
 		return
 	}
 	logEv(stdout, "UploadS3Successful", "id", f.ID)
