@@ -192,6 +192,7 @@ func upload(f handler.FileInfo) {
 	_, err = uploader.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(os.Getenv("BUCKET_NAME")),
 		Key:    aws.String(f.ID),
+		ContentType: aws.String("video/mp4"),
 		Body:   up,
 		Metadata: metadatas,
 	})
